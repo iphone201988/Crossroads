@@ -84,7 +84,7 @@ const App = () => {
         fetchDetails={true}
         enablePoweredByContainer={false}
         query={{
-          key: 'AIzaSyD5Jt2e9ocVmXovnsOsdmtdhPRkP8m9IhQ', // Replace with your Google API key
+          key: 'YOUR_GOOGLE_API_KEY', // Replace with your Google API key
           language: 'en',
           types: '(regions)',
           components: 'country:CA', // Limit results to Canada
