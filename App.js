@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import ThreePointScroller from './src/Component/ThreePointScroller';
+import HighlightText from './src/Component/HighlightText';
 
 // Get device width and height
 const { width, height } = Dimensions.get('window');
@@ -51,6 +52,7 @@ const App = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [currentPosition, setCurrentPosition] = useState(dataPayload[1].key);
   const [currentPosition2, setCurrentPosition2] = useState(dataPayload2[1].key);
+  const [searchKey, setSearchKey] = useState('');
 
   // Handler for position change in the first question
   const handlePositionChange = (newPosition) => {
@@ -65,7 +67,6 @@ const App = () => {
   // Handler for location selection
   const handleLocationSelect = (data, details) => {
     setSelectedLocation(details);
-    console.log("selectedLocation", selectedLocation.formatted_address);
   };
 
   return (
@@ -82,6 +83,10 @@ const App = () => {
         returnKeyType={'search'}
         listViewDisplayed="auto"
         fetchDetails={true}
+        textInputProps={{
+          placeholderTextColor: '#99ABC7',
+          onChangeText: (text) => { setSearchKey(text) },
+        }}
         enablePoweredByContainer={false}
         query={{
           key: 'YOUR_GOOGLE_API_KEY', // Replace with your Google API key
@@ -95,7 +100,8 @@ const App = () => {
           return (
             <View style={styles.listView}>
               <Image source={require('./assets/location.png')} style={styles.listItemImage} />
-              <Text style={styles.listText}>{title + ' ' + address}</Text>
+              <HighlightText searchText={searchKey} text={title + ' ' + address} />
+              {/* <Text style={styles.listText}>{title + ' ' + address}</Text> */}
             </View>
           );
         }}
@@ -106,7 +112,7 @@ const App = () => {
         <View style={styles.container2}>
           {/* First Question */}
           <View>
-            <Text style={styles.description}>When will you arrive in {selectedLocation.formatted_address}?</Text>
+            <Text style={styles.description}>When will you arrive in {selectedLocation?.formatted_address}?</Text>
             <ThreePointScroller onChange={handlePositionChange} dataPayload={dataPayload} />
           </View>
 
@@ -149,11 +155,10 @@ const autoCompleteStyles = {
     color: '#99ABC7',
     fontSize: 16,
     backgroundColor: '#1A1F2E',
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: '#99ABC7',
     borderRadius: 8,
     width: width - 50,
-    placeholderTextColor: 'white', // Set the placeholder text color to white
   },
   listView: {
     backgroundColor: '#374551',

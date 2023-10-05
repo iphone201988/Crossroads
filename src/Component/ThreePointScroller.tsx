@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
 
-// Define constants for image sources
+// // Define constants for image sources
 const DOTTED_BORDER_IMAGE = require('../../assets/dottedBorder.png');
 const LINE_BORDER_IMAGE = require('../../assets/lineBorder.png');
 const { width, height } = Dimensions.get('window');
@@ -123,3 +123,10 @@ const styles = StyleSheet.create({
 });
 
 export default ThreePointScroller;
+
+
+
+
+
+
+
